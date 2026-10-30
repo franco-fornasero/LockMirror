@@ -20,6 +20,9 @@ No admin rights, no services, no scheduled tasks, no audit policy changes. It's 
 
 1. Download `LockMirror.exe` from the [latest release](../../releases/latest) and put it somewhere permanent, for example `%LOCALAPPDATA%\Programs\LockMirror\`.
 2. Run it once. It has no window: it just stays in the background (you'll see it in Task Manager).
+
+   > Windows may show a blue **"Windows protected your PC"** warning the first time. That's SmartScreen: it shows up for any program downloaded from the internet that isn't code-signed and hasn't been downloaded by many people yet. Click **More info → Run anyway**. If you'd rather not trust a downloaded executable, read `Program.cs` and [build it yourself](#build).
+
 3. To start it automatically when you sign in:
 
    ```powershell
@@ -50,7 +53,7 @@ It logs each lock and unlock to `%LOCALAPPDATA%\LockMirror\log.txt`. The file is
 
 ## Limitations
 
-- No app can draw on the lock screen itself, so duplicating the displays is the only option. If your monitors have different resolutions, the duplicated image may be scaled or letterboxed on one of them while locked.
+- Every monitor shows the same image while locked. If your monitors have different resolutions, it may be scaled or letterboxed on one of them.
 - It takes a second or two after unlocking for the displays to switch back to *Extend*.
 - If LockMirror is closed while the screen is locked, the displays stay duplicated after you unlock. Press <kbd>Win</kbd>+<kbd>P</kbd> and choose *Extend*.
 
@@ -62,9 +65,14 @@ dotnet publish -c Release -o publish
 
 The executable ends up in `publish\LockMirror.exe`. Requires the .NET 9 SDK.
 
+## Alternatives
+
+- [Wintermelon](https://github.com/arun-goud/Wintermelon) uses the same duplicate-on-lock idea, but it reacts to security audit events through scheduled tasks. It needs admin rights, turns on an audit policy and targets .NET Core 3.1.
+- [win11-lockscreen-wallpaper](https://github.com/Microzello/win11-lockscreen-wallpaper) leaves the displays extended and draws your own wallpaper over the black monitors instead. You can show a different image on each monitor and the windows never move, but drawing above the lock screen requires `uiAccess`. To get it, the installer adds a self-signed certificate to the machine's Trusted Root store and installs the app under `Program Files` with admin rights. The overlay also disappears whenever Windows switches to the secure sign-in desktop.
+
 ## Credits
 
-Inspired by [Wintermelon](https://github.com/arun-goud/Wintermelon), which first used the duplicate-on-lock approach with scheduled tasks and security auditing events.
+Inspired by [Wintermelon](https://github.com/arun-goud/Wintermelon), which first used the duplicate-on-lock approach.
 
 ## License
 
