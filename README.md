@@ -2,7 +2,7 @@
 
 Show the Windows lock screen on **all** your monitors, not just the primary one.
 
-![Locking with Win+L shows the lock screen on both monitors; unlocking restores the extended desktop](docs/demo.gif)
+![Locking with Win+L shows the lock screen on both monitors; unlocking restores the extended desktop](docs/demo.webp)
 
 With two or more monitors in *Extend* mode, Windows 10 and 11 show the lock screen only on the primary display and leave the others black. LockMirror is a tiny background app that fixes that:
 
